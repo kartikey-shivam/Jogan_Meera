@@ -28,7 +28,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CancelIcon from "@material-ui/icons/Cancel";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import LightModeIcon from "@mui/icons-material/LightMode";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+// import LightModeIcon from "@mui/icons-material/LightMode";
 import useStyles from "../utils/styles";
 import { Store } from "../utils/Store";
 import { getError } from "../utils/error";
@@ -70,9 +71,10 @@ export default function Layout({ title, description, children }) {
     },
     palette: {
       type: darkMode ? "dark" : "light",
-      primary: {
-        main: "#f0c000",
-      },
+      primary: darkMode ? {
+        main: "#f0c000"
+      } : { main: "#6600FF" },
+
       secondary: {
         main: "#208080",
       },
@@ -137,6 +139,8 @@ export default function Layout({ title, description, children }) {
     Cookies.remove("paymentMethod");
     router.push("/");
   };
+
+  const IconPointerhover = {cursor: 'pointer'};
   return (
     <div>
       <Head>
@@ -222,10 +226,18 @@ export default function Layout({ title, description, children }) {
             <div>
               {userInfo ? (
                 <>
+                 
+               
+                 <Badge>
+                <AccountCircleIcon  onClick={loginClickHandler} aria-controls="simple-menu"
+                    aria-haspopup="true"  className={classes.navbarButton} hoveredStyle={IconPointerhover}/>
+                </Badge>
+                
+               
+               
+
                   <Button
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    onClick={loginClickHandler}
+                   
                     className={classes.navbarButton}
                   >
                     {userInfo.name}
@@ -273,7 +285,7 @@ export default function Layout({ title, description, children }) {
 
               <NextLink href="/cart" passHref>
                 <Link>
-                  <Typography className={classes.navLabel} component="span">
+                  <Typography className={classes.navLabel2} component="span">
                     {cart.cartItems.length > 0 ? (
                       <Badge
                         color="secondary"
@@ -282,7 +294,10 @@ export default function Layout({ title, description, children }) {
                         <ShoppingCartIcon />
                       </Badge>
                     ) : (
-                      <ShoppingCartIcon />
+                      <Badge>
+                           <ShoppingCartIcon />
+                      </Badge>
+                      
                     )}
                   </Typography>
                 </Link>
